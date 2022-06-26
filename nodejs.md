@@ -1,4 +1,14 @@
-Gobals: __filename, __dirname, module, process, Buffer
+Gobals: `__filename`, `__dirname`, `module`, `process`, `Buffer`.
+
+Module:
+
+      var module = require('./module.js')
+      module.require('./my-module.js')
+      module.id
+      module.filename
+      module.loaded
+      module.parent
+      module.children
 
 <table>
   <tr>
@@ -27,57 +37,59 @@ Gobals: __filename, __dirname, module, process, Buffer
     </td>
   </tr>
   <tr>
-    <td valign="top"><b>module</b></td>
-    <td valign="top">
-      var module = require('./module.js') <br/>
-      module.require('./my-module.js') <br/>
-      module.id <br/>
-      module.filename <br/>
-      module.loaded <br/>
-      module.parent <br/>
-      module.children <br/>
-    </td>
     <td valign="top"><b>process</b></td>
-    <td valign="top">
-      process.on('exit', code=>{}) <br/>
-      process.on('uncaughtException', err=>{}) <br/>
-      <br/>
-      process.stdout <br/>
-      process.stderr <br/>
-      process.stdin <br/>
-       <br/>
-      process.argv <br/>
-      process.env <br/>
-      process.execPath <br/>
-      process.execArgv <br/>
-       <br/>
-      process.arch <br/>
-      process.config <br/>
-      process.pid <br/>
-      process.platform <br/>
-      process.title <br/>
-      process.version <br/>
-      process.versions <br/>
-       <br/>
-      process.abort() <br/>
-      process.chdir(dir) <br/>
-      process.cwd() <br/>
-      process.exit([code]) <br/>
-      process.getgid() <br/>
-      process.setgid(id) <br/>
-      process.getuid() <br/>
-      process.setuid(id) <br/>
-      process.getgroups() <br/>
-      process.setgroups(grps) <br/>
-       <br/>
-      process.initgroups(user, extra_grp) <br/>
-      process.kill(pid, [signal]) <br/>
-      process.memoryUsage() <br/>
-      process.nextTick(callback) <br/>
-      process.maxTickDepth <br/>
-      process.umask([mask]) <br/>
-      process.uptime() <br/>
-      process.hrtime() <br/>
+    <td valign="top"><pre>
+process.on('exit', code=>{})
+process.on('uncaughtException', err=>{})
+process.stdout
+process.stderr
+process.stdin
+process.argv
+process.env
+process.execPath
+process.execArgv
+process.arch
+process.config
+process.pid
+process.platform
+process.title
+process.version
+process.versions
+process.abort()
+process.chdir(dir)
+process.cwd()
+process.exit([code])
+process.getgid()
+process.setgid(id)
+process.getuid()
+process.setuid(id)
+process.getgroups()
+process.setgroups(grps)
+process.initgroups(user, extra_grp)
+process.kill(pid, [signal])
+process.memoryUsage()
+process.nextTick(callback)
+process.maxTickDepth
+process.umask([mask])
+process.uptime()
+process.hrtime()</pre>
+    </td>
+    <td valign="top"><b>child_process</b></td>
+    <td valign="top" colspan="3"><pre>
+const { spawn } = require('child_process');
+const child = spawn('cmd.exe', ['/c', 'my.bat']);
+child.stdin
+child.stdout
+child.stderr
+child.pid
+child.connected
+child.kill([signal])
+child.send(message, [sendHandle])
+child.disconnect()
+child_process.spawn(command, [args], [opts])
+child_process.exec(command, [opts], cb)
+child_process.execFile(file, [args], [opts], [cb])
+child_process.fork(modulePath, [args], [opts]) 
     </td>
   </tr>
   <tr>

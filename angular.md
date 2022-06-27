@@ -172,8 +172,6 @@ Class AdDirective {
 }
 ```
 
-
-
 ## Pipe
 * date
 * currency
@@ -181,11 +179,91 @@ Class AdDirective {
 * lowerCase
 * percent
 * decimal
+* async
+```
+ <input (keyup)="search($event.target.value)" />
+
+ <li *ngFor="let package of packages$ | async">
+    <b>{{package.name}} v.{{package.version}}</b> -
+    <i>{{package.description}}</i>
+  </li>
+ 
+ private searchText$ = new Subject<string>();
+ search(packageName: string) {
+   this.searchText$.next(packageName);
+ }
+
+ this.packages$ = this.searchText$.pipe(
+    debounceTime(500),
+    distinctUntilChanged(),
+    switchMap(packageName =>
+      this.searchService.search(packageName, this.withRefresh))
+  );
+}
+```
+
+## Services/Dependency Injection
+* `@Injectable({providedIn: ‘root’})`
+* `@Injectable({providedIn: UserModule})`
+* `@ngModule({providers: [MyService]})`
+* `@Component({providers:[MyServie]})`
 
 ### ngZone.runOutsideAngualr(() => …..)
 
+## AOT / IVY
+compile Angular html and typescript to DOM html and Javascript before downloading to browser. It provides faster rendering performance than JIT compile. It’s default from Angular9. Before Angular 9, JIT is default
+
+Ivy is the code name for Angular's next-generation compilation and rendering pipeline (Starts from Angular9)
+AOT compilation with Ivy is faster and should be used by default. In version 9, ivy is default
+
+## Different Env.
+```
+src/environments/environment.ts
+src/environments/environment.prod.ts
+src/environments/environment.staging.ts
+
+import { environment } from './../environments/environment';
+
+$ vi angular.json
+configurations: {
+  production: {
+    fileReplacements: [
+      replace: “src/environments/environment.ts”,
+      with: “src/environments/environments.prod.ts”,
+    ]
+  },
+  staging: { . . .  }
+},
+
+$ ng build –configuration=production
+```
+
+### Observable 
+* Is cancellable(unsubscribe, takeUntil, take)
+* Can have multiple subscribers
+* Lazily executed(until subscribe, it does not execute)
+  ```
+  myObservable.subscribe({
+    next(num) { console.log('Next num: ' + num)},
+    error(err) { console.log('Received an error: ' + err)},
+    complete() { console.log('Completed'); }
+  });
+  ```
+
+## Rxjs operators [example])(https://stackblitz.com/edit/angular-ivy-xzxbes)
+For Angular applications, we prefer combining operators with pipes, rather than chaining.
+Chaining is used in many RxJS examples. observables are named with a trailing "$" sign.
+* map
+* switchMap
+* mergeMap
+* filter
+* tap
+* take, takeUntil
+* catchError
+* retry
 
 
-
-
-
+### Loading
+* Eager loading is loading modules before application starts (sync. loading)
+* Lazy loading is loading modules on demand (async loading)
+* Preloading is loading modules in background just after application starts(async loading)
